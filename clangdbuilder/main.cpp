@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     output_file = std::filesystem::absolute(output_file).string();
     showsuc("successfully compiled program, output file: " + output_file);
 
-    for (int i = 1; i < argc; ++i) {
+    for (int i = 1; i < argc; i++) {
         if (std::string(argv[i]) == "-run") {
             showinf("running program: " + output_file);
             ec = std::system(("powershell -Command " + output_file).c_str());
