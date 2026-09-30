@@ -39,7 +39,7 @@ void inline_shaders(std::string_view shader_path) {
     std::string varname = path.stem().string();
     for (auto& c : varname) if (!std::isalnum(c)) c = '_';
 
-    shader_out << std::format("static const unsigned char {}[] = {{\n", varname);
+    shader_out << std::format("unsigned char {}[] = {{\n", varname);
     for (size_t i = 0; i < shader.size(); i++) {
         if (i % 16 == 0) shader_out << "    ";
         shader_out << std::format("0x{:02x}", static_cast<unsigned char>(shader[i]));
@@ -56,6 +56,8 @@ int main(int argc, char* argv[]) {
     std::filesystem::path clangd_path = std::filesystem::current_path() / ".shaders.json";
     if (!std::filesystem::exists(clangd_path))
         showerr(".shaders.json file doesn't exists");
+    if (!std::filesystem::is_regular_file(clangd_path))
+        showerr(".shaders.json is not a regular file");
 
     std::ifstream shaders_file(clangd_path);
     std::string shaders_content((std::istreambuf_iterator<char>(shaders_file)), std::istreambuf_iterator<char>());
