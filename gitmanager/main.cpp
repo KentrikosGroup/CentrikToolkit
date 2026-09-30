@@ -71,7 +71,14 @@ auto main(int argc, char* argv[]) -> int {
     showsuc(std::format("ran command successfully"));
 
     std::string_view commit_message = "commit";
-    if (argc > 2) commit_message = argv[2];
+    for (int i = 2; i < argc; i++) {
+        std::string_view cmd = std::string_view(argv[i]);
+        if (cmd != "-push" && cmd != "mit") {
+            commit_message = cmd;
+            break;
+        }
+    }
+    
     std::string commit_command = std::format("git commit -m {}", commit_message);
     showinf(std::format("running command: {}", commit_command));
     if (int ec = std::system(commit_command.c_str()))
