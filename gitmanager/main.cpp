@@ -7,20 +7,20 @@
 #include "../required_libraries/rapidjson/document.h"
 
 void showerr(std::string_view error) {
-    std::println("\x1b[91mcentrik.glslbuilder:\x1b[0m {}", error);
+    std::println("\x1b[91mcentrik.gitmanager:\x1b[0m {}", error);
     std::_Exit(1);
 }
 
 void showsuc(std::string_view success) {
-    std::println("\x1b[92mcentrik.glslbuilder:\x1b[0m {}", success);
+    std::println("\x1b[92mcentrik.gitmanager:\x1b[0m {}", success);
 }
 
 void showinf(std::string_view info) {
-    std::println("\x1b[94mcentrik.glslbuilder:\x1b[0m {}", info);
+    std::println("\x1b[94mcentrik.gitmanager:\x1b[0m {}", info);
 }
 
 auto main(int argc, char* argv[]) -> int {
-    if (argc < 1) showerr("no commands input");
+    if (argc < 2) showerr("no commands input");
     std::string_view mode = std::string_view(argv[1]);
     if (mode == "push") {
         bool force = false;
